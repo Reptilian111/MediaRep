@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Twoja Strona do Przesyłania Plików</title>
+</head>
+<body>
+    <h1>Prześlij swoje zdjęcia i filmy</h1>
+    <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="fileToUpload" id="fileToUpload">
+        <input type="submit" value="Prześlij plik" name="submit">
+    </form>
+    <img id="previewImage" style="display: none;">
+    <video id="previewVideo" controls style="display: none;"></video>
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var file = document.getElementById('fileToUpload').files[0];
+            if (file.type.startsWith('image/')) {
+                var img = document.getElementById('previewImage');
+                img.src = URL.createObjectURL(file);
+                img.style.display = 'block';
+            } else if (file.type.startsWith('video/')) {
+                var video = document.getElementById('previewVideo');
+                video.src = URL.createObjectURL(file);
+                video.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
